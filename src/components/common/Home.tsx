@@ -1,4 +1,5 @@
-import HeroImage from '../assets/employee.avif'
+
+import HeroImage from '../../assets/employee.avif'
 
  function Home() {
   return (

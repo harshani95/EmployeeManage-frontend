@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
+//import Icon from '../../assets/icon.jpg';
 
 const NavBar = () => {
   return (
     <>
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
-            <div className="navbar-brand">
-              <img src="https://static.vecteezy.com/system/resources/previews/009/170/419/non_2x/a-unique-design-icon-of-employee-management-vector.jpg"
-                 alt="" className='logo'/>
-            </div>
+            {/* <div className="navbar-brand">
+              <img src={Icon} alt="Icon" className='logo'/>
+            </div> */}
             <a className="navbar-brand" href="#">Employee Management System</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
