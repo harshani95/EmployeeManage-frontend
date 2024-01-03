@@ -1,0 +1,19 @@
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
+  width: 45%;
+}
+
+.content{
+  margin-left: 300px;
+}
+
+.logo{
+  height: 50px;
+  width: 60px;
+}
+
+.or{
+  margin-left: 220PX;
+}
