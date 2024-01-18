@@ -1,14 +1,26 @@
-import { Link } from 'react-router-dom';
-//import Icon from '../../assets/icon.jpg';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const NavBar = () => {
+
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    navigate('/employeeList');
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate('/');
+  };
+  
   return (
     <>
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
           <div className="container-fluid">
-            {/* <div className="navbar-brand">
-              <img src={Icon} alt="Icon" className='logo'/>
-            </div> */}
             <a className="navbar-brand" href="#">Employee Management System</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,18 +29,41 @@ const NavBar = () => {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav">
                 <li className="nav-item"> <Link className="nav-link active" aria-current="page" to='/'>Home</Link></li>
+
+                {isLoggedIn && (
+                  <>
                 <li className="nav-item"><Link className="nav-link"  to='/employeeList'>View All Employees</Link></li>
                 <li className="nav-item"><Link className="nav-link"  to='/addEmployee'>Add New Employee</Link></li>
+                  </>
+                )}
+                
               </ul>
+              
             </div>
-            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-               <Link to= "/login"><button className="btn btn-primary me-md-2 button" type="button">Login</button></Link>
+            <div className="d-grid gap-2 d-md-flex justify-content-md-end" >
+              {isLoggedIn ? (
+              <button
+                className="btn btn-danger me-md-2 button"
+                type="button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            ) :(
+               <>
+               <Link to= "/login"><button className="btn btn-primary me-md-2 button" onClick={handleLogin} type="button">Login</button></Link>
                <Link to= "/signup"><button className="btn btn-success button" type="button">Sign Up</button></Link>
+               </>
+               
+               )}
             </div>
+           
           </div>
         </nav>
+
     </>
-  )
-}
+  );
+};
+
 
 export default NavBar
