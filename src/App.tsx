@@ -6,6 +6,8 @@ import Signup from './components/Signup'
 import  NavBar  from './components/common/NavBar'
 import AddEmployee from './components/employee/AddEmployee';
 import EmployeeList from './components/employee/EmployeeList';
+import UpdateEmployee from './components/employee/UpdateEmployee';
+import EmployeeProfile from './components/employee/EmployeeProfile';
 
 function App() {
 
@@ -19,9 +21,10 @@ function App() {
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/addEmployee' element={<AddEmployee/>}/>
       <Route path='/employeeList' element={<EmployeeList/>}/>
+      <Route path='/editEmployee/:id' element={<UpdateEmployee/>}/>
+      <Route path='/employeeProfile/:id' element={<EmployeeProfile/>}/>
     </Routes>
     </Router>
-   
     </>
   )
 }

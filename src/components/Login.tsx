@@ -6,6 +6,7 @@ const Login:React.FC = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
   
     const navigate = useNavigate();
 
@@ -19,10 +20,12 @@ const Login:React.FC = () => {
         navigate('/');
         
         setEmail(''),
-        setPassword('')
+        setPassword(''),
+        setErrorMessage('');
         
-        }catch(e){
-            console.log(e);   
+        }catch(error){
+            console.log(error);   
+            setErrorMessage('Incorrect email or password. Please try again.');
         }
         
     }
@@ -52,6 +55,12 @@ const Login:React.FC = () => {
               </div>
           </div>
           <br />
+          {errorMessage && (
+                  <div className="alert alert-danger" role="alert">
+                    {errorMessage}
+                  </div>
+                                  )}
+
               
           <div className="d-grid gap-2 col-8 mx-auto">
               <button className="btn btn-primary" onClick={login} type="button">Login</button>

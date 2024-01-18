@@ -5,15 +5,17 @@ img{
   width: 45%;
 }
 
-.content{
-  margin-left: 300px;
-}
-
 .logo{
   height: 50px;
   width: 60px;
 }
 
-.or{
-  margin-left: 220PX;
+.content{
+  margin-left: 20px;
+  margin-right: 20px;
 }
+
+.input-item{
+  margin-bottom: 10px;
+}
+
