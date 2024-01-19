@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { useState } from 'react';
+import AxiosInstance from '../../config/axiosInstance';
+import { SetStateAction, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Signup:React.FC = () => {
@@ -12,32 +12,34 @@ const Signup:React.FC = () => {
 
     const navigate = useNavigate();
 
-    const handleFirstNameChange = (e) => {
+    const handleFirstNameChange = (e: { target: { value: SetStateAction<string>; }; }) => {
       setFirstName(e.target.value);
       setFormErrors({ ...formErrors, firstName: false });
     };
   
-    const handleLastNameChange = (e) => {
+    const handleLastNameChange = (e: { target: { value: SetStateAction<string>; }; }) => {
       setLastName(e.target.value);
       setFormErrors({ ...formErrors, lastName: false });
     };
 
-    const handleEmailChange = (e) => {
+    const handleEmailChange = (e: { target: { value: SetStateAction<string>; }; }) => {
       setEmail(e.target.value);
       setFormErrors({ ...formErrors, email: false });
     };
   
-    const handlePasswordChange = (e) => {
+    const handlePasswordChange = (e: { target: { value: SetStateAction<string>; }; }) => {
       setPassword(e.target.value);
       setFormErrors({ ...formErrors, password: false });
     };
 
-    const signup = async ()=> {
+    const signup = async (e)=> {
+      e.preventDefault(); 
         try{
-            const response = await axios.post("http://localhost:8080/api/v1/users/register",{
+            const response = await AxiosInstance.post("/users/register",{
                 firstName, lastName, email, password  
               
         });
+        alert("Registation Successfully");
         
         console.log(response);
         navigate('/login');

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import AxiosInstance from '../config/axiosInstance';
 import {useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const Login:React.FC = () => {
 
     const login = async()=> {
         try{
-            const response = await axios.post("http://localhost:8080/api/v1/users/login",{
+            const response = await AxiosInstance.post("/users/login",{
                 email, password  
         });
 

@@ -1,8 +1,9 @@
 
 import {FaEye, FaTrashAlt, FaEdit} from 'react-icons/fa';
-import axios from 'axios';
+import AxiosInstance from '../../config/axiosInstance';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 
 interface Employee{
     id: number,
@@ -28,7 +29,7 @@ const EmployeeList:React.FC = () => {
 
 
     const getAllEmployees = async () => {
-            const response = await axios.get("http://localhost:8080/api/v1/employees/get-all-employees",{
+            const response = await AxiosInstance.get("/employees/get-all-employees",{
                 params: {
                     searchText: searchText,
                     page: 0,
@@ -40,39 +41,25 @@ const EmployeeList:React.FC = () => {
     };
 
 
-      const searchEmployee = (event: { preventDefault: () => void; }) => {
+
+    const searchEmployee = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         getAllEmployees();
-      };
+    };
 
-
-    /*const loadEmployees = async () => {
-        try {
-            const response = await axios.get("http://localhost:8080/api/v1/employees/get-all-employees");
-            console.log('API Response:', response.data);
-    
-            // Check if response.data.data is an array
-            if (Array.isArray(response.data.data)) {
-                setEmployees(response.data.data);
-            } else {
-                console.error('Invalid response format - data is not an array:', response.data);
-            }
-        } catch (error) {
-            console.error('Error fetching employees:', error);
-        }
-    };*/
     
     const deleteEmployee = async (id:number) => {
         await axios.delete('http://localhost:8080/api/v1/employees/delete/'+id);
         getAllEmployees();
     }
 
+
     return (
         <>
         <div className='container'>
             <h1 className='text-center' style={myStyle}> Employee List</h1> 
 
-                <Link to='/addEmployee' className="btn btn-success" >+ New Employee</Link><br /><br />
+                <Link to='/addEmployee' className="btn btn-success" style={{marginBottom: 5}}>+ New Employee</Link>
 
             <form className="d-flex" role="search" onSubmit={searchEmployee}>
                 <input className="form-control me-2"  value={searchText} onChange={(e) => setSearchText(e.target.value)} type="search" placeholder="Search" aria-label="Search"/>
@@ -112,7 +99,7 @@ const EmployeeList:React.FC = () => {
            
                 </tbody>
             </table>
- 
+
         </div>
 
         </>
@@ -120,4 +107,5 @@ const EmployeeList:React.FC = () => {
  }
  
  export default EmployeeList
+
  

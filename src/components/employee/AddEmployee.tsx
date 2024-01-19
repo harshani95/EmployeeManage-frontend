@@ -1,11 +1,11 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import AxiosInstance from '../../config/axiosInstance';
 
 interface AddEmployee{
     id: number,
-    fullName: string,
+    name: string,
     address: string,
     email: string,
     contactNumber: string
@@ -13,20 +13,22 @@ interface AddEmployee{
 
 const AddEmployee:React.FC = () => {
 
-    const [fullName, setFullName] = useState("");
+    const navigate = useNavigate();
+
+    const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
     const [contactNumber, setContactNumber] = useState("");
 
-
     const saveEmployee = async ()=> {
         try{
-            const  response = await axios.post("http://localhost:8080/api/v1/employees/save",{
-                fullName,address,email,contactNumber
-            
+            const response = await AxiosInstance.post("/employees/save",{
+                name,address,email,contactNumber   
         });
+        
         console.log(response);
-        setFullName('');
+        
+        setName('');
         setAddress('');
         setEmail(''),
         setContactNumber('')
@@ -34,10 +36,12 @@ const AddEmployee:React.FC = () => {
         }catch(e){
             console.log(e);   
         }
+        navigate("/employeeList");
+        
     }
 
   return (
-    <div><br />
+    <div>
         <div className='container'>
             <div className="row">
                 <div className="card col-md-6 offset-md-3"><br />
@@ -46,7 +50,7 @@ const AddEmployee:React.FC = () => {
                     <form>
                         <div className='form-group'>
                             <label htmlFor="employeeName">Full Name : </label>
-                            <input onChange={(e) => {setFullName(e.target.value) }} value={fullName} type="text" placeholder="Full Name" id="employeeName" className="form-control" 
+                            <input onChange={(e) => {setName(e.target.value) }} value={name} type="text" placeholder="Full Name" id="employeeName" className="form-control" 
                             />
                         </div><br />
                         <div className='form-group'>
@@ -65,7 +69,7 @@ const AddEmployee:React.FC = () => {
                              />
                         </div><br />
 
-                        <button onClick={saveEmployee} className="btn btn-success" type="submit">Save</button>
+                        <button onClick={()=>saveEmployee()} className="btn btn-success" type="button">Save</button>
                         <Link className="btn btn-danger" to={'/employeeList'} style={{marginLeft: "20px"}}>Cancel</Link>
                     </form>
 
