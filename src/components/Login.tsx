@@ -1,5 +1,5 @@
 import AxiosInstance from '../config/axiosInstance';
-import {useState } from 'react';
+import {useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login:React.FC = () => {
@@ -7,6 +7,7 @@ const Login:React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
   
     const navigate = useNavigate();
 
@@ -17,8 +18,11 @@ const Login:React.FC = () => {
         });
 
         console.log(response);
-        navigate('/');
-        
+
+        if (response.status === 200) {
+          setIsLoggedIn(true);
+        }
+
         setEmail(''),
         setPassword(''),
         setErrorMessage('');
@@ -28,13 +32,22 @@ const Login:React.FC = () => {
             setErrorMessage('Incorrect email or password. Please try again.');
         }
         
-    }
+    };
+
+    useEffect(() => {
+      if (isLoggedIn) {
+        navigate('/');
+      }
+    }, [isLoggedIn, navigate]);
 
     
     return (
       <>
+      
+      
       <div>
         <form>
+        
       <div className='container'>
      <div className="row">
         <div className="card col-md-6 offset-md-3"><br />
@@ -59,20 +72,25 @@ const Login:React.FC = () => {
                   <div className="alert alert-danger" role="alert">
                     {errorMessage}
                   </div>
-                                  )}
+            )}
 
-              
+   
           <div className="d-grid gap-2 col-8 mx-auto">
               <button className="btn btn-primary" onClick={login} type="button">Login</button>
               <span className='text-center'>OR</span>
               <Link className="btn btn-outline-dark" type="button" to={'/signup'} style={{marginBottom: 30}}>Create New Account</Link>
+              
+          
           </div>
             
       </div>
       </div>
       </div>
+    
+
       </form>
       </div>
+      
       </>
       
     )

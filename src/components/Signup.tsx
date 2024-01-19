@@ -1,4 +1,4 @@
-import AxiosInstance from '../../config/axiosInstance';
+import AxiosInstance from '../config/axiosInstance';
 import { SetStateAction, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 

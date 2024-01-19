@@ -1,21 +1,22 @@
+
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 
-
-const NavBar = () => {
+const NavBar: React.FC = () => {
 
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    navigate('/employeeList');
-  };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     navigate('/');
   };
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+
+  };
+
   
   return (
     <>
@@ -31,26 +32,21 @@ const NavBar = () => {
                 <li className="nav-item"> <Link className="nav-link active" aria-current="page" to='/'>Home</Link></li>
 
                 {isLoggedIn && (
-                  <>
+                <>
                 <li className="nav-item"><Link className="nav-link"  to='/employeeList'>View All Employees</Link></li>
                 <li className="nav-item"><Link className="nav-link"  to='/addEmployee'>Add New Employee</Link></li>
-                  </>
-                )}
-                
+                 </>
+              )}
               </ul>
               
             </div>
             <div className="d-grid gap-2 d-md-flex justify-content-md-end" >
-              {isLoggedIn ? (
-              <button
-                className="btn btn-danger me-md-2 button"
-                type="button"
-                onClick={handleLogout}
-              >
+            {isLoggedIn ? (
+              <button className="btn btn-danger me-md-2 button" type="button" onClick={handleLogout}>
                 Logout
               </button>
-            ) :(
-               <>
+            ) : (
+              <>
                <Link to= "/login"><button className="btn btn-primary me-md-2 button" onClick={handleLogin} type="button">Login</button></Link>
                <Link to= "/signup"><button className="btn btn-success button" type="button">Sign Up</button></Link>
                </>
