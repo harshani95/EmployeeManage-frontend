@@ -1,22 +1,12 @@
 
-import { useState } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+  isLoggedIn: boolean;
+  onLogout: () => void;
+}
 
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    navigate('/');
-  };
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-
-  };
-
+  const NavBar: React.FC<NavBarProps> = ({ isLoggedIn, onLogout }) => {
   
   return (
     <>
@@ -42,12 +32,12 @@ const NavBar: React.FC = () => {
             </div>
             <div className="d-grid gap-2 d-md-flex justify-content-md-end" >
             {isLoggedIn ? (
-              <button className="btn btn-danger me-md-2 button" type="button" onClick={handleLogout}>
+              <button className="btn btn-danger me-md-2 button" type="button" onClick={onLogout}>
                 Logout
               </button>
             ) : (
               <>
-               <Link to= "/login"><button className="btn btn-primary me-md-2 button" onClick={handleLogin} type="button">Login</button></Link>
+               <Link to= "/login"><button className="btn btn-primary me-md-2 button"  type="button">Login</button></Link>
                <Link to= "/signup"><button className="btn btn-success button" type="button">Sign Up</button></Link>
                </>
                

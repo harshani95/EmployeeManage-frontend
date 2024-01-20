@@ -49,7 +49,7 @@ const EmployeeList:React.FC = () => {
 
     
     const deleteEmployee = async (id:number) => {
-        await axios.delete('http://localhost:8080/api/v1/employees/delete/'+id);
+        await AxiosInstance.delete('/employees/delete/'+id);
         getAllEmployees();
     }
 

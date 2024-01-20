@@ -2,7 +2,14 @@ import AxiosInstance from '../config/axiosInstance';
 import {useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login:React.FC = () => {
+interface LoginProps {
+  onLogin: () => void;
+}
+
+
+// const Login:React.FC = () => {
+  
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,9 +25,15 @@ const Login:React.FC = () => {
         });
 
         console.log(response);
-
+    
         if (response.status === 200) {
+        const token = response.data.data;
+        localStorage.setItem('token', token);
+        
           setIsLoggedIn(true);
+          console.log('successfully logged');
+          onLogin();
+          
         }
 
         setEmail(''),
