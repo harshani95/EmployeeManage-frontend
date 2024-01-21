@@ -11,6 +11,7 @@ interface AddEmployee{
     contactNumber: string
 }
 
+  
 const AddEmployee:React.FC = () => {
 
     const navigate = useNavigate();
@@ -19,8 +20,15 @@ const AddEmployee:React.FC = () => {
     const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
     const [contactNumber, setContactNumber] = useState("");
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const saveEmployee = async ()=> {
+
+        if (!name || !address || !email || !contactNumber) {
+            setErrorMessage("All fields required.");
+            return;
+        }
+
         try{
             const response = await AxiosInstance.post("/employees/save",{
                 name,address,email,contactNumber   
@@ -31,12 +39,19 @@ const AddEmployee:React.FC = () => {
         setName('');
         setAddress('');
         setEmail(''),
-        setContactNumber('')
+        setContactNumber(''),
+        setErrorMessage("Employee saved successfully!");
 
         }catch(e){
             console.log(e);   
+            setErrorMessage("Error saving employee. Please try again.");
+        
         }
-        navigate("/employeeList");
+        
+        setTimeout(() => {
+            setErrorMessage(null); 
+            navigate("/employeeList");
+          }, 2000);
         
     }
 
@@ -50,27 +65,31 @@ const AddEmployee:React.FC = () => {
                     <form>
                         <div className='form-group'>
                             <label htmlFor="employeeName">Full Name : </label>
-                            <input onChange={(e) => {setName(e.target.value) }} value={name} type="text" placeholder="Full Name" id="employeeName" className="form-control" 
+                            <input onChange={(e) => {setName(e.target.value) }} value={name} type="text" placeholder="Full Name" id="employeeName" className="form-control" required
                             />
                         </div><br />
                         <div className='form-group'>
                             <label htmlFor="employeeAddress">Address : </label>
-                            <input onChange={(e) => {setAddress(e.target.value) }} value={address} placeholder="Address" id="employeeAddress" className="form-control" 
+                            <input onChange={(e) => {setAddress(e.target.value) }} value={address} placeholder="Address" id="employeeAddress" className="form-control" required
                              />
                         </div><br />
                         <div className='form-group'>
                             <label htmlFor="employeeEmail">Email : </label>
-                            <input onChange={(e) => {setEmail(e.target.value) }} value={email} placeholder="Email" id="employeeEmail" className="form-control" 
+                            <input onChange={(e) => {setEmail(e.target.value) }} value={email} placeholder="Email" id="employeeEmail" className="form-control" required
                             />
                         </div><br />
                         <div className='form-group'>
                             <label htmlFor="employeeContactNumber">Contact Number : </label>
-                            <input onChange={(e) => {setContactNumber(e.target.value) }} value={contactNumber} placeholder="Contact Number" id="employeeContactNumber" className="form-control" 
+                            <input onChange={(e) => {setContactNumber(e.target.value) }} value={contactNumber} placeholder="Contact Number" id="employeeContactNumber" className="form-control" required
                              />
                         </div><br />
+                        {errorMessage && <div className="alert alert-danger" role="alert">
+                  {errorMessage}
+                </div>}
 
                         <button onClick={()=>saveEmployee()} className="btn btn-success" type="button">Save</button>
                         <Link className="btn btn-danger" to={'/employeeList'} style={{marginLeft: "20px"}}>Cancel</Link>
+                       
                     </form>
 
                     </div>

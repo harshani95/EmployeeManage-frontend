@@ -24,7 +24,15 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 email, password  
         });
 
-        console.log(response);
+        const expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate()+2);
+
+            const cookieValue=encodeURIComponent('token')+'='
+                +encodeURIComponent(response.data)+'; expires='+expirationDate.toUTCString()+'; path=/';
+
+            document.cookie=cookieValue;
+            console.log(response.data);
+
     
         if (response.status === 200) {
         const token = response.data.data;
