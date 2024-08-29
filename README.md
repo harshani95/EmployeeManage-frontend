@@ -1,3 +1,9 @@
+# Employee Management System - FrontEnd
+### Technologies and Tools
+- React
+- TypeScript
+- bootstrap
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
