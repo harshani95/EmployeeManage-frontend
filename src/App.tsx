@@ -10,39 +10,14 @@ import UpdateEmployee from './components/employee/UpdateEmployee';
 import EmployeeProfile from './components/employee/EmployeeProfile';
 import { useState } from 'react';
 
-
-// const App = () => {
-  
-//   return (
-//     <>
-//     <Router >
-//     <NavBar />
-//     <Routes>
-  
-//       <Route path='/' element={<Home/>}/>
-//       <Route path='/addEmployee' element={<AddEmployee/>}/>
-//       <Route path='/employeeList' element={<EmployeeList/>}/>
-//       <Route path='/editEmployee/:id' element={<UpdateEmployee/>}/>
-//       <Route path='/employeeProfile/:id' element={<EmployeeProfile/>}/>
-   
-//       <Route path='/login' element={<Login/>}/>
-//       <Route path='/signup' element={<Signup/>}/>
-//     </Routes>
-//     </Router>
-//     </>
-//   )
-// }
-
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
-    // Your authentication logic here
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
-    // Your logout logic here
     setIsLoggedIn(false);
   };
 

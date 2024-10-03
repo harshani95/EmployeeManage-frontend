@@ -5,9 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 interface LoginProps {
   onLogin: () => void;
 }
-
-
-// const Login:React.FC = () => {
   
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
@@ -85,10 +82,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                   <label htmlFor="inputPassword" className="form-label">Password</label>
                   <input type="password" id='password'  onChange={(e)=>{setPassword(e.target.value)}}
                     className='form-control input-item' name="password" autoComplete="current-password" required/>
-                  <a href=''>Forgot password?</a>
               </div>
           </div>
-          <br />
+        
           {errorMessage && (
                   <div className="alert alert-danger" role="alert">
                     {errorMessage}
