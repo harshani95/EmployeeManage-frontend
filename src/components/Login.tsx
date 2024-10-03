@@ -2,11 +2,7 @@ import AxiosInstance from '../config/axiosInstance';
 import {useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-interface LoginProps {
-  onLogin: () => void;
-}
-  
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const Login: React.FC = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -37,8 +33,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         
           setIsLoggedIn(true);
           console.log('successfully logged');
-          onLogin();
-          
         }
 
         setEmail(''),
@@ -61,8 +55,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     
     return (
       <>
-      
-      
       <div>
         <form>
         

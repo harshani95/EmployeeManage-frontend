@@ -1,12 +1,7 @@
 
 import { Link } from 'react-router-dom';
 
-interface NavBarProps {
-  isLoggedIn: boolean;
-  onLogout: () => void;
-}
-
-  const NavBar: React.FC<NavBarProps> = ({ isLoggedIn, onLogout }) => {
+  const NavBar: React.FC = () => {
   
   return (
     <>
@@ -20,28 +15,19 @@ interface NavBarProps {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav">
                 <li className="nav-item"> <Link className="nav-link active" aria-current="page" to='/'>Home</Link></li>
-
-                {isLoggedIn && (
-                <>
                 <li className="nav-item"><Link className="nav-link"  to='/employeeList'>View All Employees</Link></li>
                 <li className="nav-item"><Link className="nav-link"  to='/addEmployee'>Add New Employee</Link></li>
-                 </>
-              )}
               </ul>
               
             </div>
             <div className="d-grid gap-2 d-md-flex justify-content-md-end" >
-            {isLoggedIn ? (
-              <button className="btn btn-danger me-md-2 button" type="button" onClick={onLogout}>
+              <button className="btn btn-danger me-md-2 button" type="button" >
                 Logout
               </button>
-            ) : (
               <>
                <Link to= "/login"><button className="btn btn-primary me-md-2 button"  type="button">Login</button></Link>
                <Link to= "/signup"><button className="btn btn-success button" type="button">Sign Up</button></Link>
                </>
-               
-               )}
             </div>
            
           </div>

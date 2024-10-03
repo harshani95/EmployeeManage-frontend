@@ -32,7 +32,7 @@ const Signup:React.FC = () => {
       setFormErrors({ ...formErrors, password: false });
     };
 
-    const signup = async (e)=> {
+    const signup = async (e: { preventDefault: () => void; })=> {
       e.preventDefault(); 
         try{
             const response = await AxiosInstance.post("/users/register",{
