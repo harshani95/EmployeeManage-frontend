@@ -1,3 +1,6 @@
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 import './App.css'
 import Home from './components/common/Home'
@@ -12,6 +15,7 @@ import EmployeeProfile from './components/employee/EmployeeProfile';
 const App: React.FC = () => {
   
   return (
+    <Provider store={store}>
     <Router>
       <NavBar />
       <Routes>
@@ -22,9 +26,9 @@ const App: React.FC = () => {
           <Route path="/addEmployee" element={<AddEmployee />} />
           <Route path='/editEmployee/:id' element={<UpdateEmployee/>}/>
           <Route path='/employeeProfile/:id' element={<EmployeeProfile/>}/>
-      
       </Routes>
     </Router>
+    </Provider>
   );
 };
 

@@ -1,14 +1,16 @@
 import AxiosInstance from '../config/axiosInstance';
-import {useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../redux/authSlice';
 
 const Login: React.FC = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const login = async()=> {
@@ -31,8 +33,9 @@ const Login: React.FC = () => {
         const token = response.data.data;
         localStorage.setItem('token', token);
         
-          setIsLoggedIn(true);
-          console.log('successfully logged');
+        dispatch(loginSuccess(token));
+        console.log('successfully logged');
+        navigate('/');
         }
 
         setEmail(''),
@@ -45,13 +48,6 @@ const Login: React.FC = () => {
         }
         
     };
-
-    useEffect(() => {
-      if (isLoggedIn) {
-        navigate('/');
-      }
-    }, [isLoggedIn, navigate]);
-
     
     return (
       <>
