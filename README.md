@@ -3,6 +3,8 @@
 - React
 - TypeScript
 - bootstrap
+- axios
+- Redux
 
 # React + TypeScript + Vite
 
