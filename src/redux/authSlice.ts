@@ -1,27 +1,26 @@
-
 const initialState = {
   isAuthenticated: false,
   user: null,
 };
 
-export const loginSuccess = (user) => ({
-  type: 'LOGIN_SUCCESS',
+export const loginSuccess = <T>(user: T) => ({
+  type: "LOGIN_SUCCESS",
   payload: user,
 });
 
 export const logout = () => ({
-  type: 'LOGOUT',
+  type: "LOGOUT",
 });
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOGIN_SUCCESS':
+    case "LOGIN_SUCCESS":
       return {
         ...state,
         isAuthenticated: true,
         user: action.payload,
       };
-    case 'LOGOUT':
+    case "LOGOUT":
       return {
         ...state,
         isAuthenticated: false,
