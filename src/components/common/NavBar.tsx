@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
@@ -59,10 +59,11 @@ const NavBar: React.FC = () => {
               )}
             </ul>
           </div>
-          <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+
+          <div className="d-flex flex-column flex-md-row gap-2">
             {isAuthenticated ? (
               <button
-                className="btn btn-danger me-md-2 button"
+                className="btn btn-danger"
                 type="button"
                 onClick={handleLogout}
               >
@@ -70,16 +71,19 @@ const NavBar: React.FC = () => {
               </button>
             ) : (
               <>
-                <Link to="/login">
+                <Link to="/login" className="mb-2 mb-md-0">
                   <button
-                    className="btn btn-primary me-md-2 button"
+                    className="btn btn-primary w-100 w-md-auto"
                     type="button"
                   >
                     Login
                   </button>
                 </Link>
                 <Link to="/signup">
-                  <button className="btn btn-success button" type="button">
+                  <button
+                    className="btn btn-success w-100 w-md-auto"
+                    type="button"
+                  >
                     Sign Up
                   </button>
                 </Link>
