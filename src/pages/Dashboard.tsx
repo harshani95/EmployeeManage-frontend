@@ -1,7 +1,8 @@
 import { FaEye, FaTrashAlt, FaEdit } from "react-icons/fa";
-import AxiosInstance from "../../config/axiosInstance";
+import AxiosInstance from "../config/axiosInstance";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 interface Employee {
   id: number;
@@ -11,7 +12,8 @@ interface Employee {
   contactNumber: string;
 }
 
-const EmployeeList: React.FC = () => {
+const Dashboard: React.FC = () => {
+  const { user } = useAuth();
   const myStyle = {
     color: "rgb(39, 60, 117)",
     marginTop: 15,
@@ -36,14 +38,14 @@ const EmployeeList: React.FC = () => {
   const totalPages = Math.ceil(employees.length / employeesPerPage);
 
   const getAllEmployees = async () => {
-    const response = await AxiosInstance.get("/employees/get-all-employees", {
+    const response = await AxiosInstance.get("/admin-user/get-all-employees", {
       params: {
         searchText: searchText,
         page: 0,
         size: 10,
       },
     });
-
+    console.log(response.data.data.dataList);
     setEmployees(response.data.data.dataList);
   };
 
@@ -53,7 +55,7 @@ const EmployeeList: React.FC = () => {
   };
 
   const deleteEmployee = async (id: number) => {
-    await AxiosInstance.delete("/employees/delete/" + id);
+    await AxiosInstance.delete("/admin/delete/" + id);
     getAllEmployees();
   };
 
@@ -64,15 +66,15 @@ const EmployeeList: React.FC = () => {
           {" "}
           Employee List
         </h1>
-
-        <Link
-          to="/addEmployee"
-          className="btn btn-success"
-          style={{ marginBottom: 5 }}
-        >
-          + New Employee
-        </Link>
-
+        {user?.role === "ADMIN" && (
+          <Link
+            to="/addEmployee"
+            className="btn btn-success"
+            style={{ marginBottom: 5 }}
+          >
+            + New Employee
+          </Link>
+        )}
         <form className="d-flex" role="search" onSubmit={searchEmployee}>
           <input
             className="form-control me-2"
@@ -117,28 +119,31 @@ const EmployeeList: React.FC = () => {
                     <FaEye />
                   </Link>
                 </td>
+                {user?.role === "ADMIN" && (
+                  <>
+                    <td className="mx-2">
+                      <Link
+                        to={`/editEmployee/${employee.id}`}
+                        className="btn btn-warning"
+                      >
+                        <FaEdit />
+                      </Link>
+                    </td>
 
-                <td className="mx-2">
-                  <Link
-                    to={`/editEmployee/${employee.id}`}
-                    className="btn btn-warning"
-                  >
-                    <FaEdit />
-                  </Link>
-                </td>
-
-                <td className="mx-2">
-                  <button
-                    onClick={() => {
-                      if (confirm("are you sure?")) {
-                        deleteEmployee(employee.id);
-                      }
-                    }}
-                    className="btn btn-danger"
-                  >
-                    <FaTrashAlt />
-                  </button>
-                </td>
+                    <td className="mx-2">
+                      <button
+                        onClick={() => {
+                          if (confirm("are you sure?")) {
+                            deleteEmployee(employee.id);
+                          }
+                        }}
+                        className="btn btn-danger"
+                      >
+                        <FaTrashAlt />
+                      </button>
+                    </td>
+                  </>
+                )}
               </tr>
             ))}
           </tbody>
@@ -186,4 +191,4 @@ const EmployeeList: React.FC = () => {
   );
 };
 
-export default EmployeeList;
+export default Dashboard;

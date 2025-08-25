@@ -1,20 +1,9 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/authSlice";
-import { useNavigate } from "react-router-dom";
-import { RootState } from "../../redux/store";
+
+import { useAuth } from "../context/AuthContext";
 
 const NavBar: React.FC = () => {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
-  };
+  const { user, logout } = useAuth();
 
   return (
     <>
@@ -42,31 +31,28 @@ const NavBar: React.FC = () => {
                   Home
                 </Link>
               </li>
-
-              {isAuthenticated && (
+              {user && (
                 <>
                   <li className="nav-item">
                     <Link className="nav-link" to="/employeeList">
                       View All Employees
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/addEmployee">
-                      Add New Employee
-                    </Link>
-                  </li>
+                  {user?.role === "ADMIN" && (
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/addEmployee">
+                        Add New Employee
+                      </Link>
+                    </li>
+                  )}
                 </>
               )}
             </ul>
           </div>
 
           <div className="d-flex flex-column flex-md-row gap-2">
-            {isAuthenticated ? (
-              <button
-                className="btn btn-danger"
-                type="button"
-                onClick={handleLogout}
-              >
+            {user ? (
+              <button className="btn btn-danger" type="button" onClick={logout}>
                 Logout
               </button>
             ) : (

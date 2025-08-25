@@ -1,4 +1,5 @@
-import AxiosInstance from "../config/axiosInstance";
+import axios from "axios";
+//import AxiosInstance from "../config/axiosInstance";
 import { SetStateAction, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -6,7 +7,7 @@ const Signup: React.FC = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("USER");
   const [formErrors, setFormErrors] = useState({
     username: false,
     email: false,
@@ -47,12 +48,16 @@ const Signup: React.FC = () => {
   const signup = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      const response = await AxiosInstance.post("/users/register", {
-        username,
-        email,
-        password,
-        role,
-      });
+      // const response = await AxiosInstance.post("/auth/register", {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/auth/register",
+        {
+          username,
+          email,
+          password,
+          role,
+        }
+      );
       alert("Registation Successfully");
 
       console.log(response);
@@ -158,8 +163,8 @@ const Signup: React.FC = () => {
                       autoComplete="given-name"
                       required
                     >
-                      <option value="ROLE_USER">User</option>
-                      <option value="ROLE_ADMIN">Admin</option>
+                      <option value="USER">USER</option>
+                      <option value="ADMIN">ADMIN</option>
                     </select>
                   </div>
                 </div>

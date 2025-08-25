@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import AxiosInstance from "../../config/axiosInstance";
-import profileImage from "../../assets/profile.png";
+import AxiosInstance from "../config/axiosInstance";
+import profileImage from "../assets/profile.png";
 
 interface EmployeeProfile {
   id: number;
@@ -21,7 +21,7 @@ const EmployeeProfile: React.FC = () => {
 
   const loadEmployee = async () => {
     try {
-      const response = await AxiosInstance.get(`/employees/get-by-id/${id}`);
+      const response = await AxiosInstance.get(`/admin-user/get-by-id/${id}`);
       const employeeData: EmployeeProfile = response.data.data; // Adjusted the type based on the provided interface
       console.log(response.data.data);
 

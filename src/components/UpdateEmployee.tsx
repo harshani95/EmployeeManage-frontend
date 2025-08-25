@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AxiosInstance from "../../config/axiosInstance";
+import AxiosInstance from "../config/axiosInstance";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 interface UpdateEmployee {
@@ -21,7 +21,7 @@ const UpdateEmployee: React.FC = () => {
 
   const updateEmployee = async () => {
     try {
-      await AxiosInstance.put(`/employees/update/${id}`, {
+      await AxiosInstance.put(`/admin/update/${id}`, {
         name: updateName,
         address: updateAddress,
         email: updateEmail,
@@ -35,7 +35,7 @@ const UpdateEmployee: React.FC = () => {
 
   const loadEmployee = async () => {
     try {
-      const response = await AxiosInstance.get(`/employees/get-by-id/${id}`);
+      const response = await AxiosInstance.get(`/admin-user/get-by-id/${id}`);
       const employeeData: UpdateEmployee = response.data.data; // Adjusted the type based on the provided interface
       console.log(response.data.data);
 
