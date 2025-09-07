@@ -4,7 +4,7 @@
 - TypeScript
 - bootstrap
 - axios
-- Redux
+- Context API
 
 # React + TypeScript + Vite
 
